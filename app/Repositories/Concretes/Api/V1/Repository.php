@@ -32,7 +32,7 @@ class Repository implements RepositoryInterface
 		$model = $this->model->create($data);
  		return $model;
 	}
-  
+
  	/**
 	 * Update an existing resource
 	 *
@@ -72,6 +72,19 @@ class Repository implements RepositoryInterface
  		return $model;
 	}
 
+  /**
+	 * Get a single object
+	 *
+	 * @param int $id
+	 * @param array $columns
+	 *
+	 * @return Object
+	 */
+	public function find($id, $columns = ['*'])
+	{
+		return $this->model->find($id, $columns);
+	}
+  
  	/**
 	 * Destroy an object
 	 *

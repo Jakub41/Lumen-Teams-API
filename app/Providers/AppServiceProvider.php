@@ -7,6 +7,7 @@ use App\Repositories\Concretes\Api\V1\Users\UsersRepository;
 use App\Repositories\Contracts\Api\V1\Teams\TeamsRepositoryInterface;
 use App\Repositories\Contracts\Api\V1\Users\UsersRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {

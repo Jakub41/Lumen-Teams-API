@@ -12,8 +12,9 @@
 */
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-  $router->post('users', 'UsersController@store');
-  $router->group(['prefix' => 'v1'], function() use ($router) {
-    $router->put('/users', 'UsersController@update');
-  });
+	$router->post('users', 'UsersController@store');
+    $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function() use ($router) {
+		$router->put('/users', 'UsersController@update');
+	    $router->delete('/users', 'UsersController@destroy');
+    });
 });

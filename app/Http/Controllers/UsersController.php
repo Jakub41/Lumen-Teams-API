@@ -6,6 +6,7 @@ use App\Repositories\Contracts\Api\V1\Users\UsersRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -47,5 +48,14 @@ class UsersController extends Controller
 		$this->userRepo->update($userId, $request->all());
 
 		return response()->json(['success' => true]);
+	}
+
+  public function destroy(Request $request)
+	{
+		$userId = $this->userRepo->findWhere('api_token', $request->api_token)->first()->id;
+
+ 		$this->userRepo->destroy($userId);
+    
+ 		return response()->json(['success' => true]);
 	}
 }
