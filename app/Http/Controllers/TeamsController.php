@@ -32,9 +32,26 @@ class TeamsController extends Controller
 		]);
  		return $this->userRepo->updateTeam($teamId, $request->all());
 	}
-  
+
  	public function assignUser($teamId, $userId)
 	{
 		return response()->json($this->userRepo->assignTeam($teamId, $userId));
+	}
+
+  public function assignUserAsOwner($teamId, $userId)
+	{
+		return response()->json($this->userRepo->assignTeamAsOwner($teamId, $userId));
+	}
+  
+ 	/**
+	 * Delete team for a user
+	 *
+	 * @param $teamId
+	 *
+	 * @return mixed
+	 */
+	public function destroy($teamId)
+	{
+		return response()->json($this->userRepo->deleteTeam($teamId));
 	}
 }

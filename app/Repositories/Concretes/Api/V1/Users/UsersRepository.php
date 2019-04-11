@@ -38,13 +38,12 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 		$user->teams()->sync($team);
 
 		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
-		Log::debug($usersTeam->id);
 		$usersTeam->assignRole('owner');
 
 		return $team;
 	}
 
-  /**
+	/**
 	 * Update team for a user
 	 *
 	 * @param int $teamId
@@ -56,13 +55,15 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 	{
 		$user = $this->findWhere('api_token', $data['api_token'])->first();
 		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($teamId)->first();
- 		if (is_object($usersTeam) && $usersTeam->hasRole('owner')) {
+
+		if (is_object($usersTeam) && $usersTeam->hasRole('owner')) {
 			return $this->teamRepo->update($teamId, ['title' => $data['title']]);
 		}
- 		return response('Unauthorized.', 401);
+
+		return response('Unauthorized.', 401);
 	}
-  
- 	/**
+
+	/**
 	 * Can assign user to a team
 	 *
 	 * @param int $teamId
@@ -74,9 +75,46 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 	{
 		$user = $this->findOrFail($userId);
 		$team = $this->teamRepo->findOrFail($teamId);
- 		$user->teams()->sync($team);
- 		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
+
+		$user->teams()->sync($team);
+
+		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
 		$usersTeam->assignRole('member');
- 		return true;
+
+		return true;
+	}
+
+	/**
+	 * Can assign user to a team as owner
+	 *
+	 * @param int $teamId
+	 * @param int $userId
+	 *
+	 * @return mixed
+	 */
+	public function assignTeamAsOwner($teamId, $userId)
+	{
+		$user = $this->findOrFail($userId);
+		$team = $this->teamRepo->findOrFail($teamId);
+
+		$user->teams()->sync($team);
+
+		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
+		$usersTeam->assignRole('owner');
+
+		return true;
+	}
+
+	public function deleteTeam($teamId)
+	{
+		$user = $this->findWhere('api_token', $data['api_token'])->first();
+
+		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($teamId)->first();
+
+		if (is_object($usersTeam) && $usersTeam->hasRole('owner')) {
+			return $this->teamRepo->destroy($teamId);
+		}
+
+		return response('Unauthorized.', 401);
 	}
 }
