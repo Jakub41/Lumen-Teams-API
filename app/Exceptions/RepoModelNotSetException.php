@@ -14,6 +14,7 @@ class RepoModelNotSetException extends \Exception
 	public function setRepo(string $repo)
 	{
 		$this->message = "Model for repository [{$repo}] has not been set.";
+
  		return $this;
 	}
 }

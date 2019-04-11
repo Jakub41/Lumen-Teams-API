@@ -14,6 +14,7 @@ class Repository implements RepositoryInterface
 		if (! $this->model) {
 			throw (new RepoModelNotSetException())->setRepo(get_called_class());
 		}
+
  		$this->model = new $this->model();
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Concretes\Api\V1;
+namespace App\Repositories\Contracts\Api\V1;
 
 interface RepositoryInterface
 {
