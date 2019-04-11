@@ -21,6 +21,6 @@ class TeamsController extends Controller
 			'title' => 'required'
 		]);
 
-		return response()->json(['success' => $this->userRepo->createTeam($request->all())]);
+		return response()->json(['data' => $this->userRepo->createTeam($request->all())]);
 	}
 }
