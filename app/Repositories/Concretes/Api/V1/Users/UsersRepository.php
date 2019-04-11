@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Concretes\Api\V1\Users;
 
+
 use App\Repositories\Concretes\Api\V1\Repository;
 use App\Repositories\Contracts\Api\V1\Teams\TeamsRepositoryInterface;
 use App\Repositories\Contracts\Api\V1\Users\UsersRepositoryInterface;
@@ -23,6 +24,20 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 	}
 
 	/**
+	 * Get all teams for the user
+	 *
+	 * @param array $data
+	 *
+	 * @return mixed
+	 */
+	public function getAllTeams(array $data)
+	{
+		$user = $this->findWhere('api_token', $data['api_token'])->first();
+
+		return $user->load('teams');
+	}
+
+	/**
 	 * Create a team for a user
 	 *
 	 * @param array $data
@@ -35,7 +50,7 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 
 		$team = $this->teamRepo->store($data);
 
-		$user->teams()->sync($team);
+		$user->teams()->attach($team);
 
 		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
 		$usersTeam->assignRole('owner');
@@ -76,7 +91,7 @@ class UsersRepository extends Repository implements UsersRepositoryInterface
 		$user = $this->findOrFail($userId);
 		$team = $this->teamRepo->findOrFail($teamId);
 
-		$user->teams()->sync($team);
+		$user->teams()->attach($team);
 
 		$usersTeam = UsersTeam::whereUserId($user->id)->whereTeamId($team->id)->first();
 		$usersTeam->assignRole('member');

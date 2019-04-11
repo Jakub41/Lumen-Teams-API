@@ -20,6 +20,11 @@ class UsersController extends Controller
 		$this->userRepo = $userRepo;
 	}
 
+	public function index(Request $request)
+	{
+		return response()->json($this->userRepo->getAllTeams($request->all()));
+	}
+
 	public function store(Request $request)
 	{
 		$this->validate($request, [
