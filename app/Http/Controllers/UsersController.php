@@ -34,7 +34,7 @@ class UsersController extends Controller
 			return response()->json($this->userRepo->store($data));
 		}
 
-		return response()->json($this->userRepo->findWhere('email', $request->email));
+		return response()->json($this->userRepo->findWhere('email', $request->email)->first());
 	}
 
 	public function update(Request $request)
@@ -55,7 +55,7 @@ class UsersController extends Controller
 		$userId = $this->userRepo->findWhere('api_token', $request->api_token)->first()->id;
 
  		$this->userRepo->destroy($userId);
-    
+
  		return response()->json(['success' => true]);
 	}
 }
