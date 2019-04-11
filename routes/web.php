@@ -11,6 +11,11 @@
 |
 */
 
+// this is the default web route that comes with installation
+$router->get('/', function () use ($router) {
+    return $router->app->version();
+});
+
 $router->group(['prefix' => 'api'], function () use ($router) {
 	$router->post('users', 'UsersController@store');
   $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function() use ($router) {
