@@ -1,5 +1,9 @@
 # Lumen Teams API
 
+[TOC]
+
+
+
 ## Summary
 
 ##### Introduction
