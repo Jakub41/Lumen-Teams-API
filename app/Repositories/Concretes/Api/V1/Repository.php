@@ -84,7 +84,7 @@ class Repository implements RepositoryInterface
 	{
 		return $this->model->find($id, $columns);
 	}
-  
+
  	/**
 	 * Destroy an object
 	 *
@@ -123,5 +123,15 @@ class Repository implements RepositoryInterface
 	public function findWhere($column, $value)
 	{
 		return $this->model->where($column, 'LIKE', "%$value%");
+	}
+
+  /**
+	 * Get all of a resource
+	 *
+	 * @return Collection|static[]
+	 */
+	public function all()
+	{
+		return $this->model->all();
 	}
 }

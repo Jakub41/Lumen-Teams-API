@@ -14,8 +14,8 @@
 $router->group(['prefix' => 'api'], function () use ($router) {
 	$router->post('users', 'UsersController@store');
   $router->group(['prefix' => 'v1', 'middleware' => 'auth'], function() use ($router) {
-		$router->get('/users/teams', 'UsersController@index');
-		$router->put('/users', 'UsersController@update');
+		$router->get('/users', 'UsersController@index');
+		$router->get('/users/teams', 'UsersController@getTeams');
 	  $router->delete('/users', 'UsersController@destroy');
 		$router->post('/teams', 'TeamsController@store');
 		$router->put('/teams/{teamId}', 'TeamsController@update');
