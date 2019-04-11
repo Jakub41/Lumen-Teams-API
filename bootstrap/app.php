@@ -97,4 +97,9 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+/*
+| Route List Display package
+*/
+$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
+
 return $app;
